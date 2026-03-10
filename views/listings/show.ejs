@@ -1,0 +1,238 @@
+<% layout("/layouts/boilerplate") %>
+
+<!-- ✅ ADD 1: Leaflet CSS - paste in <head> of boilerplate.ejs instead if possible -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<!-- LISTING SECTION -->
+<div class="row">
+  <div class="col-8 offset-2">
+
+    <h3><%= listing.title %></h3>
+
+    <div class="card mb-3">
+
+      <!-- IMAGE -->
+      <img 
+        src="<%= listing.image && listing.image.url ? listing.image.url : '/images/default.jpg' %>" 
+        alt="listing_image"
+        style="width:500px;height:200px;object-fit:cover;display:block;margin:auto;"
+        onerror="this.onerror=null; this.src='/images/default.jpg';"
+      >
+
+      <div class="card-body">
+
+        <!-- OWNER -->
+        <i>
+          Owned by: <%= listing.owner ? listing.owner.username : "Unknown user" %>
+        </i>
+
+        <br>
+
+        <p class="card-text"><%= listing.description %></p>
+
+        <p>
+          ₹ <%= listing.price != null
+          ? Number(listing.price).toLocaleString("en-IN")
+          : "Price not available" %>
+        </p>
+
+        <p><%= listing.location %>, <%= listing.country %></p>
+
+        <!-- EDIT + DELETE -->
+        <% if(currUser && listing.owner && listing.owner._id.equals(currUser._id)) { %>
+
+          <a href="/listings/<%= listing._id %>/edit" class="btn btn-danger">
+            Edit
+          </a>
+
+          <form method="POST"
+            action="/listings/<%= listing._id %>?_method=DELETE"
+            style="display:inline;">
+
+            <button class="btn btn-dark">
+              Delete Listing
+            </button>
+
+          </form>
+
+        <% } %>
+
+        <hr/>
+
+
+        <h4>📍 Where you'll be</h4>
+
+        <!-- Map Box -->
+        <div id="map" style="
+          width: 500px;
+          height: 250px;
+          border-radius: 12px;
+          border: 1px solid #ddd;
+          margin-bottom: 8px;
+          z-index: 0;
+        "></div>
+
+        <!-- Location text below map -->
+        <p style="color: #717171; font-size: 14px;">
+          📌 <%= listing.location %>, <%= listing.country %>
+        </p>
+
+        <hr/>
+        
+        <!-- REVIEW FORM -->
+
+        <% if(currUser) { %>
+
+      <h4>Leave a Review</h4>
+
+      <form action="/listings/<%= listing._id %>/reviews" method="POST">
+
+        <div class="mb-3">
+          <label class="form-label"><b>Rating</b></label>
+<fieldset class="starability-slot">
+
+<input type="radio" id="no-rate" class="input-no-rate"
+name="review[rating]" value="0" checked aria-label="No rating">
+
+<input type="radio" id="first-rate1" name="review[rating]" value="1">
+<label for="first-rate1" title="Terrible">1 star</label>
+
+<input type="radio" id="first-rate2" name="review[rating]" value="2">
+<label for="first-rate2" title="Not good">2 stars</label>
+
+<input type="radio" id="first-rate3" name="review[rating]" value="3">
+<label for="first-rate3" title="Average">3 stars</label>
+
+<input type="radio" id="first-rate4" name="review[rating]" value="4">
+<label for="first-rate4" title="Very good">4 stars</label>
+
+<input type="radio" id="first-rate5" name="review[rating]" value="5">
+<label for="first-rate5" title="Amazing">5 stars</label>
+
+<span class="starability-focus-ring"></span>
+
+</fieldset>
+
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Comment</label>
+
+          <textarea
+            name="review[comment]"
+            rows="4"
+            class="form-control"
+            required>
+          </textarea>
+
+        </div>
+
+        <button class="btn btn-outline-dark">
+          Submit Review
+        </button>
+
+      </form>
+
+    <% } else { %>
+
+      <p>You must <a href="/login">login</a> to leave a review.</p>
+
+    <% } %>
+
+  </div>
+</div>
+        
+
+
+<!-- ALL REVIEWS -->
+<div class="container mt-5">
+
+  <h4 class="mb-4"><b>All Reviews</b></h4>
+
+  <% if (!listing.reviews || listing.reviews.length === 0) { %>
+    <p>No reviews yet</p>
+  <% } %>
+
+  <div class="row g-4">
+
+    <% listing.reviews.forEach(function(review) { %>
+
+      <div class="col-md-6">
+        <div class="card bg-light border border-dark border-2 rounded-4 shadow-sm h-100">
+          <div class="card-body p-4">
+
+            <h5 class="fw-semibold mb-2">
+              <%= review.author ? review.author.username : "Anonymous" %>
+            </h5>
+
+            <p class="mb-3" style="font-size:1.05rem;">
+              <%= review.comment %>
+            </p>
+
+            <p class="text-warning fs-5">
+              <%= "⭐".repeat(review.rating) %>
+            </p>
+
+            <% if(currUser && review.author && review.author._id.equals(currUser._id)) { %>
+              <form method="POST"
+                action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                <button class="btn btn-danger btn-sm">Delete</button>
+              </form>
+            <% } %>
+
+          </div>
+        </div>
+      </div>
+
+    <% }) %>
+
+  </div>
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+  // 📍 Location from your listing data (passed from EJS)
+  const locationName = "<%= listing.location %>, <%= listing.country %>";
+
+  let lat = 28.6139;
+  let lng = 77.2090;
+
+  // let lat = <%= listing.lat || 28.6139 %>;
+  // let lng = <%= listing.lng || 77.2090 %>;
+
+  // 🗺️ Initialize map
+  const map = L.map('map').setView([lat, lng], 13);
+
+  // 🌐 OpenStreetMap tiles (FREE - No API key needed)
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 19,
+  }).addTo(map);
+// 📌 Custom Airbnb-style red round marker
+  const redIcon = L.divIcon({
+    className: '',
+    html: `
+      <div style="
+        width: 22px;
+        height: 22px;
+        background: #FF385C;
+        border: 3px solid white;
+        border-radius: 50%;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+      "></div>
+    `,
+    iconSize: [22, 22],
+    iconAnchor: [11, 11],
+    popupAnchor: [0, -15]
+  });
+
+  
+  //  Add marker + popup
+  L.marker([lat, lng], { icon: redIcon })
+    .addTo(map)
+    .bindPopup(`<b>${locationName}</b><br>Exact location after booking`)
+    .openPopup();
+</script>
+
