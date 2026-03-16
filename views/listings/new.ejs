@@ -1,91 +1,74 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container mt-4">
+<div class="col-lg-10 mx-auto">
+
+<h3 class="mb-4">Create New Listing</h3>
+
 <form action="/listings" method="POST" enctype="multipart/form-data">
 
-  <!-- Title -->
-  <div class="mb-3">
-    <label class="form-label fw-bold">Title</label>
-    <input
-      type="text"
-      name="listing[title]"
-      class="form-control border border-dark border-2 rounded-3"
-      placeholder="Enter listing title"
-      required
-    />
-  </div>
+<div class="mb-3">
+<label class="form-label fw-bold">Title</label>
+<input
+type="text"
+name="listing[title]"
+class="form-control border border-dark border-2 rounded-3"
+required
+/>
+</div>
 
-  <!-- Description -->
-  <div class="mb-3">
-    <label class="form-label fw-bold">Description</label>
-    <textarea
-      name="listing[description]"
-      class="form-control border border-dark border-2 rounded-3"
-      rows="2"
-      placeholder="Describe your place"
-    ></textarea>
-  </div>
+<div class="mb-3">
+<label class="form-label fw-bold">Description</label>
+<textarea
+name="listing[description]"
+class="form-control border border-dark border-2 rounded-3"
+rows="2"
+></textarea>
+</div>
 
-  <!-- Upload Image -->
-  <div class="mb-3">
-    <label class="form-label fw-bold">Upload Listing Image</label>
-    <input
-      type="file"
-      name="listing[image]"
-      class="form-control border border-dark border-2 rounded-3"
-    />
-  </div>
+<div class="mb-3">
+<label class="form-label fw-bold">Upload Listing Image</label>
+<input
+type="file"
+name="listing[image]"
+class="form-control border border-dark border-2 rounded-3"
+/>
+</div>
 
-  <!-- Price + Country -->
-  <div class="row mb-3">
-    <div class="col-md-6">
-      <label class="form-label fw-bold">Price</label>
-      <input
-        type="number"
-        name="listing[price]"
-        class="form-control border border-dark border-2 rounded-3"
-        placeholder="Enter price"
-      />
-    </div>
+<div class="row mb-3">
 
-    <div class="col-md-6">
-      <label class="form-label fw-bold">Country</label>
-      <input
-        type="text"
-        name="listing[country]"
-        class="form-control border border-dark border-2 rounded-3"
-        placeholder="Country"
-      />
-    </div>
-  </div>
+<div class="col-md-6">
+<label class="form-label fw-bold">Price</label>
+<input
+type="number"
+name="listing[price]"
+class="form-control border border-dark border-2 rounded-3"
+/>
+</div>
 
-  <!-- Location -->
-  <div class="mb-3">
-    <label class="form-label fw-bold">Location</label>
-    <input
-      type="text"
-      name="listing[location]"
-      class="form-control border border-dark border-2 rounded-3"
-      placeholder="City or area"
-    />
-  </div>
+<div class="col-md-6">
+<label class="form-label fw-bold">Country</label>
+<input
+type="text"
+name="listing[country]"
+class="form-control border border-dark border-2 rounded-3"
+/>
+</div>
 
-  <!-- Category -->
-  <div class="mb-4">
-    <label class="form-label fw-bold">Category</label>
-    <select
-      name="listing[category]"
-      class="form-select border border-dark border-2 rounded-3"
-    >
-      <option value="Trending">Trending</option>
-      <option value="Rooms">Rooms</option>
-      <option value="Iconic cities">Iconic cities</option>
-      <option value="Mountains">Mountains</option>
-      <option value="Castles">Castles</option>
-      <option value="Amazing pools">Amazing pools</option>
-      <option value="Camping">Camping</option>
-      <option value="Farms">Farms</option>
-      <option value="Arctic">Arctic</option>
-    </select>
-  </div>
+</div>
 
-  <button class="btn btn-dark">Add Listing</button>
+<div class="mb-3">
+<label class="form-label fw-bold">Location</label>
+<input
+type="text"
+name="listing[location]"
+class="form-control border border-dark border-2 rounded-3"
+/>
+</div>
+
+<button class="btn btn-dark">Add Listing</button>
 
 </form>
+
+</div>
+</div>

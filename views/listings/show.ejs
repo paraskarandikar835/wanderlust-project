@@ -5,19 +5,28 @@
 
 <!-- LISTING SECTION -->
 <div class="row">
-  <div class="col-8 offset-2">
+  <div class="col-10 offset-1 col-md-8 offset-md-2">
 
-    <h3><%= listing.title %></h3>
+    <!-- Listing Title -->
+    <h2 class="listing-title mb-3"><%= listing.title %></h2>
 
-    <div class="card mb-3">
+    <!-- Listing Card -->
+    <div class="listing-card card border-0 shadow-sm rounded-4 overflow-hidden mb-2">
 
-      <!-- IMAGE -->
-      <img 
-        src="<%= listing.image && listing.image.url ? listing.image.url : '/images/default.jpg' %>" 
-        alt="listing_image"
-        style="width:500px;height:200px;object-fit:cover;display:block;margin:auto;"
-        onerror="this.onerror=null; this.src='/images/default.jpg';"
-      >
+      <!-- IMAGE WRAPPER -->
+      <div class="listing-img-wrapper position-relative" style="height:320px; width:100%;">
+        <img
+          src="<%= listing.image && listing.image.url ? listing.image.url : '/images/default.jpg' %>"
+          alt="<%= listing.title %>"
+          class="listing-img w-100 h-100"
+          style="object-fit: cover;"
+          onerror="this.onerror=null; this.src='/images/default.jpg';"
+        >
+        <!-- Optional: badge/tag overlay -->
+        <span class="badge-category position-absolute top-0 start-0 m-3 px-3 py-2 rounded-pill text-white fw-semibold">
+          ✦ Featured
+        </span>
+      </div>
 
       <div class="card-body">
 
