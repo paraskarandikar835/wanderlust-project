@@ -33,24 +33,34 @@ module.exports.showListing = async (req, res) => {
 
 // CREATE
 module.exports.createListing = async (req, res) => {
+  try {
+    console.log("FILE =", req.file);
 
     const newListing = new Listing(req.body.listing);
 
     newListing.owner = req.user._id;
 
     if (req.file) {
-        newListing.image = {
-            url: req.file.path,
-            filename: req.file.filename
-        };
+      newListing.image = {
+        url: req.file.path,
+        filename: req.file.filename
+      };
     }
 
     await newListing.save();
 
     req.flash("success", "New Listing Created!");
     res.redirect("/listings");
-};
 
+  } catch (err) {
+    console.error("========== ERROR ==========");
+    console.error(err);
+    console.error("Message:", err.message);
+    console.error("Stack:", err.stack);
+
+    return res.status(500).send(`<pre>${err.stack}</pre>`);
+}
+};
 
 // EDIT FORM
 module.exports.renderEditForm = async (req, res) => {

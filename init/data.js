@@ -10,7 +10,7 @@ const sampleListings = [
     image: {
       filename: "listingimage",
       url:
-        "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=60",
+        "https://media.bookmundi.com/aggregate-hero-images/switzerland/cropped-mobile.jpg?format=auto&quality=60&width=1920",
     },
     price: 1500,
     location: "Malibu",

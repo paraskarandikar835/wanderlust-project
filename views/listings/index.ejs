@@ -1,6 +1,6 @@
 
 <% layout("/layouts/boilerplate") %>
-<%= success %>
+
 <!-- //This page lists all listings. -->
 <div id="filters">
 
@@ -84,14 +84,12 @@
 
 <div class="card h-100">
 
-<img
-  src="<%= listing.image && listing.image.url ? listing.image.url : '/images/default.jpg' %>"
+  <img
+  src="<%= listing.image && listing.image.url ? listing.image.url : '' %>"
   class="card-img-top"
   alt="listing_image"
   style="height:320px; width:100%; object-fit:cover;"
-  onerror="this.onerror=null; this.src='/images/default.jpg';"
 />
-
 <div class="card-body">
 <h5 class="card-title">
 <b><%= listing.title %></b>
