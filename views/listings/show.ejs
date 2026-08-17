@@ -1,9 +1,9 @@
 <% layout("/layouts/boilerplate") %>
 
-<!-- ✅ ADD 1: Leaflet CSS - paste in <head> of boilerplate.ejs instead if possible -->
+// ADD 1: Leaflet CSS - paste in <head> of boilerplate.ejs instead if possible 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-<!-- LISTING SECTION -->
+<!-- 
+// LISTING SECTION -->
 <div class="row">
   <div class="col-10 offset-1 col-md-8 offset-md-2">
 
@@ -153,7 +153,7 @@ name="review[rating]" value="0" checked aria-label="No rating">
         
 
 
-<!-- ALL REVIEWS -->
+// ALL REVIEWS 
 <div class="container mt-5">
 
   <h4 class="mb-4"><b>All Reviews</b></h4>
@@ -202,7 +202,7 @@ name="review[rating]" value="0" checked aria-label="No rating">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-  // 📍 Location from your listing data (passed from EJS)
+  //  Location from your listing data (passed from EJS)
   const locationName = "<%= listing.location %>, <%= listing.country %>";
 
   let lat = 28.6139;
@@ -211,15 +211,15 @@ name="review[rating]" value="0" checked aria-label="No rating">
   // let lat = <%= listing.lat || 28.6139 %>;
   // let lng = <%= listing.lng || 77.2090 %>;
 
-  // 🗺️ Initialize map
+  //  Initialize map
   const map = L.map('map').setView([lat, lng], 13);
 
-  // 🌐 OpenStreetMap tiles (FREE - No API key needed)
+  //  OpenStreetMap tiles (FREE - No API key needed)
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     maxZoom: 19,
   }).addTo(map);
-// 📌 Custom Airbnb-style red round marker
+//  Custom Airbnb-style red round marker
   const redIcon = L.divIcon({
     className: '',
     html: `

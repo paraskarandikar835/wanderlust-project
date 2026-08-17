@@ -1,17 +1,19 @@
 const Listing = require("../models/listing");
 
 
-// INDEX
+// // INDEX
 module.exports.index = async (req, res) => {
     const allListings = await Listing.find({});
     res.render("listings/index", { allListings });
 };
 
 
+
 // NEW FORM
 module.exports.renderNewForm = (req, res) => {
     res.render("listings/new");
 };
+
 
 
 // SHOW
@@ -26,10 +28,11 @@ module.exports.showListing = async (req, res) => {
         req.flash("error", "Listing not found!");
         return res.redirect("/listings");
     }
+    console.log("IMAGE OBJECT:", listing.image);
+    console.log("IMAGE URL:", listing.image?.url);
 
     res.render("listings/show", { listing });
 };
-
 
 // CREATE
 module.exports.createListing = async (req, res) => {

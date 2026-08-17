@@ -12,7 +12,7 @@ const mongoose = require("mongoose");
 const initData = require("./data.js");
 const Listing = require("../models/listing.js");
 
-const dbUrl = process.env.ATLASDB_URL;
+const dbUrl = "mongodb://127.0.0.1:27017/Wanderlust";
 
 async function main() {
   await mongoose.connect(dbUrl);

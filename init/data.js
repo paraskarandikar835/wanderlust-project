@@ -24,8 +24,9 @@ const sampleListings = [
     image: {
       filename: "listingimage",
       url:
-        "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=60",
+        "https://images.unsplash.com/photo-1606402179428-a57976d71fa4?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHJlc29ydHxlbnwwfHwwfHx8MA%3D%3D",
     },
+    
     price: 1200,
     location: "New York City",
     country: "United States",
@@ -46,13 +47,13 @@ const sampleListings = [
   },
 
   {
-    title: "Beachfront Paradise",
+    title: "patata",
     description:
       "Step out onto the sandy beach.",
     image: {
       filename: "listingimage",
       url:
-        "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=60",
+        "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGhvdGVsfGVufDB8fDB8fHww",
     },
     price: 2000,
     location: "Cancun",
